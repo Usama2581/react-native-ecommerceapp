@@ -57,6 +57,7 @@ export default function Auth({ navigation }) {
 
     }
 
+    
     const updateFrom = (e, key) => {
         setForm({ ...form, [key]: e })
 

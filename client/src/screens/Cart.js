@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList, Pressable, ActivityIndicator, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, FlatList, Pressable, ActivityIndicator, Image, RefreshControl } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import Stars from '../components/Stars'
@@ -11,23 +11,28 @@ export default function Cart({ navigation }) {
 
   const [data, setData] = useState('')
 
-  useEffect(() => {
-    const getData = async () => {
-      console.log('useEffect chala-------------->')
+  // const [refreshing, setRefreshing] = useState(false);
 
+  useEffect(() => {
+    // console.log('useEffect chala 1-------------->')
+    const getData = async () => {
+      // console.log('useEffect chala-------------->')
+      
       const tempEmail = await AsyncStorage.getItem('email')
       const email = JSON.parse(tempEmail)
       // console.log(email)
-
+      
       axios.get(`http://192.168.3.108:3000/cart/${email}`)
-        .then(res => setData(res.data))
-        .catch(err => console.error(err))
-
+      .then(res => setData(res.data))
+      .catch(err => console.error(err))
+      
     }
+    
+    getData();
+  }, [data])
+  
 
-    getData()
-
-  }, [])
+  // console.log(data)
 
 
   const rightSwipe = () => {
@@ -70,12 +75,14 @@ export default function Cart({ navigation }) {
 
   return (
     <View style={styles.page}>
+
       <View style={styles.product_box}>
         {/* <Text style={styles.product_text}>{route.params}</Text> */}
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
           renderItem={renderProducts}
+          showsVerticalScrollIndicator={false}
           resizeMode='contain'
           ListEmptyComponent={
             <View style={{ height: 700, justifyContent: 'center' }}>

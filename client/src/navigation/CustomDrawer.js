@@ -10,14 +10,12 @@ import { isLoggedIn } from '../redux/actions/authAction'
 import OverlayLoader from '../components/OverlayLoader'
 
 export default function CustomDrawer(props) {
-    // const user = useSelector(state => state.userReducer.user)
-    // console.log(user)
+    
 
     const dispatch = useDispatch()
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
 
-    // console.log('drawer open')
 
     useEffect(() => {
         // console.log('useEffect chala-------->')
@@ -31,7 +29,7 @@ export default function CustomDrawer(props) {
             }
         }
         getUser()
-    }, [])
+    }, [name])
 
     // console.log('picture', picture.name)
 

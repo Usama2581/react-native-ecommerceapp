@@ -25,7 +25,6 @@ export default function Cart({ navigation }) {
       axios.get(`http://192.168.3.108:3000/cart/${email}`)
       .then(res => setData(res.data))
       .catch(err => console.error(err))
-      
     }
     
     getData();

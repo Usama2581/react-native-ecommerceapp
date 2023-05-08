@@ -25,7 +25,7 @@ export default function Picture(props) {
 
     useEffect(() => {
         // console.log('useEffect() called')
-        getUser()
+        getUser();
     }, [pic])
     // console.log(data)
     const getUser = async () => {
